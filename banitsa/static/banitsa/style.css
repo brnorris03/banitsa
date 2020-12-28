@@ -1,4 +1,22 @@
+body {
+    background-image: url("images/bgpattern_bg.png");
+    font-weight: bolder;
+    font-size: medium;
+}
 
 li {
-    color: green;
+    color: firebrick;
+    font-weight: bold;
+}
+
+table {
+    font-weight: bolder;
+    font-size-adjust: inherit;
+    align-content: center;
+    text-align: center;
+}
+
+input[type=submit] {
+    font-weight: bolder;
+    font-size: medium;
 }

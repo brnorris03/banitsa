@@ -2,29 +2,31 @@
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'banitsa/style.css' %}">
     <body>
+    <center>
     <h1>Здравей! Искаш ли баница? </h1>
-
+    <p></p><img src="{% static "banitsa/images/banitsa.jpg" %}"/><p></p>
     {% block content %}
         {% if final %}
             <p>О не! Свърши баницата!<br>Oh no! You are out of banitsa!</p>
         {% else %}
-            {% if latest %}
-                <p>{{  latest|linebreaks }}</p>
-            {% endif %}
             <form action="{% url 'pick' %}" method="post">
             {% csrf_token %}
                 Име [Name]: <input type="text" name="person" value="" maxlength="40">
-                <input type="submit" value="Pick a piece!" size>
+                <input type="submit" value="Избери парче!">
             </form>
+            {% if latest %}
+                <p><table bgcolor="#90ee90"><tr><td>{{  latest|linebreaks }}</td></tr></table></p>
+            {% endif %}
         {% endif %}
-        <br><hr><br>
+        <hr>
         <h3>Намерени ({{ count }} от {{ total }})</h3>
 
         <ul>
         {% for fortune in already_picked_list %}
-            <li>{{ fortune|linebreaks }}</li>
+            <li>{{ fortune }}</li>
         {% endfor %}
         </ul>
     {% endblock %}
+    </center>
     </body>
 </html>

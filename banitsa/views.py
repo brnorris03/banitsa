@@ -24,17 +24,19 @@ def pick(request):
         request.session['context'] = context
         return render(request, 'banitsa/index.html', context)
 
-    fortune_id = random.randint(0, num_fortunes - 1)
+    #print(sorted(context['picked']))
+    fortune_id = random.randint(1, num_fortunes)
     while fortune_id in context['picked']:
-        fortune_id = random.randint(0,num_fortunes-1)
+        fortune_id = random.randint(1,num_fortunes)
     context['picked'].append(fortune_id)
+    #print(fortune_id)
     fortune = Fortune.objects.get(pk=fortune_id)
     person = request.POST['person']
     if not person:
-        person = 'Срамежливец/Shy'
+        person = 'Срамежливец [Shy]'
     context['count'] += 1
-    kqsmet = person + ': ' + fortune.fortune_text.replace('Б:','').rstrip('.') + '. [' + \
-             fortune.english_text.replace('E:','').rstrip('.') + '.]'
+    kqsmet = person + ':\n' + fortune.fortune_text.replace('Б:','').rstrip('.') + '.\n[' + \
+             fortune.english_text.replace('E:','').strip().rstrip('.') + '.]'
     context['already_picked_list'].insert(0, kqsmet)
     context['latest'] = "Късмет на " + kqsmet
     request.session['context'] = context
