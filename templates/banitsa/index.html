@@ -4,11 +4,15 @@
     <body>
     <center>
     <h1>Здравей! Искаш ли баница? </h1>
-    <p></p><img src="{% static "banitsa/images/banitsa.jpg" %}"/><p></p>
     {% block content %}
         {% if final %}
             <p>О не! Свърши баницата!<br>Oh no! You are out of banitsa!</p>
+            <form action="{% url 'pick' %}" method="post">
+            {% csrf_token %}
+                <input type="submit" value="Reset" name="reset">
+            </form>
         {% else %}
+            <p></p><img src="{% static "banitsa/images/banitsa.jpg" %}"/><p></p>
             <form action="{% url 'pick' %}" method="post">
             {% csrf_token %}
                 Име [Name]: <input type="text" name="person" value="" maxlength="40">

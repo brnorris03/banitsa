@@ -4,10 +4,13 @@ import random
 
 from .models import Fortune
 
+def reset_context():
+    return {'picked': [], 'already_picked_list': [], 'final': False, 'latest': None,
+               'count': 0, 'total': Fortune.objects.count()}
+
 def index(request):
     if not 'context' in request.session.keys():
-        context = {'picked': [], 'already_picked_list': [], 'final': False, 'latest': None,
-                   'count': 0, 'total': Fortune.objects.count()}
+        context =reset_context()
         request.session['context'] = context
         request.session.set_expiry(7200)
     else:
@@ -15,9 +18,15 @@ def index(request):
     return render(request, 'banitsa/index.html', context)
 
 def pick(request):
+    if request.POST.get('reset'):
+        context = reset_context()
+        request.session['context'] = context
+        return render(request, 'banitsa/index.html', context)
+
     context = request.session['context']
     if context['final']:
         return render(request, 'banitsa/index.html', context)
+
     num_fortunes = context['total']
     if len(context['picked']) >= num_fortunes:
         context['final'] = True
