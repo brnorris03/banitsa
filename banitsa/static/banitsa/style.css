@@ -14,6 +14,7 @@ table {
     font-size-adjust: inherit;
     align-content: center;
     text-align: center;
+    border: 2px solid black;
 }
 
 input[type=submit] {

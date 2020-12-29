@@ -6,7 +6,7 @@ from .models import Fortune
 
 def reset_context():
     return {'picked': [], 'already_picked_list': [], 'final': False, 'latest': None,
-               'count': 0, 'total': Fortune.objects.count()}
+            'count': 0, 'total': Fortune.objects.count(), 'available': list(Fortune.objects.all().values_list('pk', flat=True))}
 
 def index(request):
     if not 'context' in request.session.keys():
@@ -34,9 +34,9 @@ def pick(request):
         return render(request, 'banitsa/index.html', context)
 
     #print(sorted(context['picked']))
-    fortune_id = random.randint(1, num_fortunes)
-    while fortune_id in context['picked']:
-        fortune_id = random.randint(1,num_fortunes)
+    fortune_index = random.randint(0, len(context['available'])-1)
+    fortune_id = context['available'][fortune_index]
+    del context['available'][fortune_index]
     context['picked'].append(fortune_id)
     #print(fortune_id)
     fortune = Fortune.objects.get(pk=fortune_id)
