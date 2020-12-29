@@ -33,7 +33,7 @@ SECRET_KEY = 'awafw+wp&se$_ud%z^aup$t@caa0-uxk2p1%vqpj*z!%6_0ti5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['arya.cs.uoregon.edu']
 
 TIME_ZONE = 'America/Los_Angeles'
 USE_TZ = True
